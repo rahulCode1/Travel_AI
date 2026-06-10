@@ -18,8 +18,6 @@ const TripPlanner = () => {
   const [isSelecting, setIsSelecting] = useState(false);
   const { trip, setTrip } = useTravelContext();
 
-  
-
   const handleOnChange = (e) => {
     setFormData((prevStat) => ({
       ...prevStat,
@@ -40,10 +38,10 @@ const TripPlanner = () => {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/travel-planner`,
         {
-          destination, 
+          destination,
           duration: formData.duration,
-          budget: formData.budget
-        }
+          budget: formData.budget,
+        },
       );
 
       setTrip(res.data?.trip);
@@ -71,9 +69,6 @@ const TripPlanner = () => {
       if (isSelecting) {
         return;
       }
-
-      
-
       if (!destination) {
         return setSuggestions([]);
       }
@@ -90,9 +85,7 @@ const TripPlanner = () => {
     };
 
     handleShowAutoSuggestion();
-  }, [destination, isSelecting ]);
-
-  
+  }, [destination, isSelecting]);
 
   const handleSetSuggestion = (suggestion) => {
     setDestination(suggestion);
@@ -100,10 +93,14 @@ const TripPlanner = () => {
     setIsSelecting(true);
   };
 
+  
+
   const removeTripAndSuggestion = () => {
     setDestination("");
     setSuggestions([]);
   };
+
+  
 
   return (
     <main className={styles.main}>
@@ -119,6 +116,7 @@ const TripPlanner = () => {
             suggestions={suggestions}
             setIsSelecting={setIsSelecting}
             setDestination={setDestination}
+            setSuggestions={setSuggestions}
             destination={destination}
           />
 

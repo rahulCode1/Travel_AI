@@ -11,9 +11,15 @@ const TripForm = ({
   destination,
   setDestination,
   setIsSelecting,
+  setSuggestions
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onClick={() => {
+        suggestions.length > 0 && setSuggestions([])
+      }}
+    >
       <h2 className={styles.heading}>Plan your trip</h2>
       <p className={styles.subtitle}>
         Fill in your details and we'll build the perfect itinerary.
