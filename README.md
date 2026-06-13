@@ -7,7 +7,7 @@ Build with React frontend, Express/Node backend, MongoDB database and JWT-based 
 
 ## Demo Link
 
-[Live Demo](https://trip-planner-frontend-xd1n.vercel.app)
+[Live Demo](https://travel-ai-eight-tau.vercel.app)
 
 ---
 
