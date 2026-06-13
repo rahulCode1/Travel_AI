@@ -12,6 +12,8 @@ const TripPlan = ({ trip }) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
+  console.log(trip)
+
   const handleSaveTrip = async (e) => {
     e.preventDefault();
 
@@ -178,7 +180,8 @@ const TripPlan = ({ trip }) => {
                       className="fw-bold text-white mb-0"
                       style={{ fontSize: 14 }}
                     >
-                      €{stay.price}{" "}
+                      {trip?.currency_symbol}
+                      {stay.price}{" "}
                       <span
                         className="fw-normal text-secondary"
                         style={{ fontSize: 11 }}
@@ -194,11 +197,15 @@ const TripPlan = ({ trip }) => {
 
           {/* Budget */}
           <div className={styles.sectionCard}>
+            <p className="text-light">
+              Exchange Rate:
+              <span className="ms-4 ">{trip?.currency_value}</span>
+            </p>
             <h3
               className="text-white fw-semibold mb-3"
               style={{ fontSize: 15 }}
             >
-              💰 Estimated Budget (€)
+              💰 Estimated Budget ({trip?.currency_symbol})
             </h3>
 
             {/* Tier summary */}
@@ -215,7 +222,8 @@ const TripPlan = ({ trip }) => {
                   >
                     <p className={styles.tierLabel}>{label}</p>
                     <p className={styles.tierAmount}>
-                      €{trip.estimated_budget_eur[key]}
+                      {trip?.currency_symbol}
+                      {trip.estimated_budget[key]}
                     </p>
                   </div>
                 </div>
@@ -246,19 +254,24 @@ const TripPlan = ({ trip }) => {
                         <strong className="text-white">{label}</strong>
                       </td>
                       <td>
-                        €{getPersentValue(trip.estimated_budget_eur[key], 30)}
+                        {trip?.currency_symbol}
+                        {getPersentValue(trip.estimated_budget[key], 30)}
                       </td>
                       <td>
-                        €{getPersentValue(trip.estimated_budget_eur[key], 25)}
+                        {trip?.currency_symbol}
+                        {getPersentValue(trip.estimated_budget[key], 25)}
                       </td>
                       <td>
-                        €{getPersentValue(trip.estimated_budget_eur[key], 15)}
+                        {trip?.currency_symbol}
+                        {getPersentValue(trip.estimated_budget[key], 15)}
                       </td>
                       <td>
-                        €{getPersentValue(trip.estimated_budget_eur[key], 15)}
+                        {trip?.currency_symbol}
+                        {getPersentValue(trip.estimated_budget[key], 15)}
                       </td>
                       <td>
-                        €{getPersentValue(trip.estimated_budget_eur[key], 15)}
+                        {trip?.currency_symbol}
+                        {getPersentValue(trip.estimated_budget[key], 15)}
                       </td>
                     </tr>
                   ))}

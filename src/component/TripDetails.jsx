@@ -57,8 +57,8 @@ const TripDetails = ({ trip }) => {
         {
           destination: formData.destination,
           duration: formData.duration,
-          budget: formData.budget
-        }
+          budget: formData.budget,
+        },
       );
       setUpdatedTrip(res.data?.updatedTrip);
       setModelOpen(false);
@@ -80,7 +80,7 @@ const TripDetails = ({ trip }) => {
     setFormData({
       destination: trip.destination,
       duration: trip.duration_days,
-      budget: trip.estimated_budget_eur.low,
+      budget: trip.estimated_budget.low,
     });
   };
 
@@ -109,6 +109,8 @@ const TripDetails = ({ trip }) => {
       setIsSaving(false);
     }
   };
+
+  console.log("Trip details:", trip);
 
   const handleUpdateTripStatus = async () => {
     const toastId = loadingToast("Trip Marking as complete...");
@@ -143,30 +145,34 @@ const TripDetails = ({ trip }) => {
 
       {/* Header */}
       <div style={{ position: "relative" }}>
-  <div className={`${styles.sectionCard} d-flex align-items-center gap-3`}>
-    <div className={styles.headerIcon}>
-      <img src={locationImg} alt="" style={{ width: 20 }} />
-    </div>
-    <div className="d-flex align-items-start align-items-sm-center flex-column flex-sm-row flex-grow-1 gap-2">
-      <div className="flex-grow-1">
-        <h2 className="mb-0 fw-bold text-white" style={{ fontSize: 20 }}>
-          {data.destination}
-        </h2>
-        <small className="text-secondary">AI generated travel guide</small>
+        <div
+          className={`${styles.sectionCard} d-flex align-items-center gap-3`}
+        >
+          <div className={styles.headerIcon}>
+            <img src={locationImg} alt="" style={{ width: 20 }} />
+          </div>
+          <div className="d-flex align-items-start align-items-sm-center flex-column flex-sm-row flex-grow-1 gap-2">
+            <div className="flex-grow-1">
+              <h2 className="mb-0 fw-bold text-white" style={{ fontSize: 20 }}>
+                {data.destination}
+              </h2>
+              <small className="text-secondary">
+                AI generated travel guide
+              </small>
+            </div>
+            <p
+              style={{
+                backgroundColor: data?.isTripComplete ? "green" : "red",
+                whiteSpace: "nowrap",
+                margin: 0,
+              }}
+              className="text-light badge"
+            >
+              {data?.isTripComplete ? "Completed" : "Not complete yet"}
+            </p>
+          </div>
+        </div>
       </div>
-      <p
-        style={{
-          backgroundColor: data?.isTripComplete ? "green" : "red",
-          whiteSpace: "nowrap",
-          margin: 0,
-        }}
-        className="text-light badge"
-      >
-        {data?.isTripComplete ? "Completed" : "Not complete yet"}
-      </p>
-    </div>
-  </div>
-</div>
 
       {/* Best time + duration */}
       <div className={`${styles.sectionCard} d-flex align-items-center gap-3`}>
@@ -261,7 +267,8 @@ const TripDetails = ({ trip }) => {
                   📍 {stay.distance} miles away
                 </p>
                 <p className="fw-bold text-white mb-0" style={{ fontSize: 14 }}>
-                  €{stay.price}{" "}
+                  {data?.currency_symbol}
+                  {stay.price}{" "}
                   <span
                     className="fw-normal text-secondary"
                     style={{ fontSize: 11 }}
@@ -277,8 +284,12 @@ const TripDetails = ({ trip }) => {
 
       {/* Budget */}
       <div className={styles.sectionCard}>
+        <p className="text-white fw-semibold">
+          Exchange Rate:
+          <span className="ms-4 ">{data?.currency_value}</span>
+        </p>
         <h3 className="text-white fw-semibold mb-3" style={{ fontSize: 15 }}>
-          💰 Estimated Budget (€)
+          💰 Estimated Budget ({data?.currency_symbol})
         </h3>
 
         {/* Tier summary */}
@@ -295,7 +306,8 @@ const TripDetails = ({ trip }) => {
               >
                 <p className={styles.tierLabel}>{label}</p>
                 <p className={styles.tierAmount}>
-                  €{data.estimated_budget_eur[key]}
+                  {data?.currency_symbol}
+                  {data.estimated_budget[key]}
                 </p>
               </div>
             </div>
@@ -326,19 +338,24 @@ const TripDetails = ({ trip }) => {
                     <strong className="text-white">{label}</strong>
                   </td>
                   <td>
-                    €{getPersentValue(data.estimated_budget_eur[key], 30)}
+                    {data?.currency_symbol}
+                    {getPersentValue(data.estimated_budget[key], 30)}
                   </td>
                   <td>
-                    €{getPersentValue(data.estimated_budget_eur[key], 25)}
+                    {data?.currency_symbol}
+                    {getPersentValue(data.estimated_budget[key], 25)}
                   </td>
                   <td>
-                    €{getPersentValue(data.estimated_budget_eur[key], 15)}
+                    {data?.currency_symbol}
+                    {getPersentValue(data.estimated_budget[key], 15)}
                   </td>
                   <td>
-                    €{getPersentValue(data.estimated_budget_eur[key], 15)}
+                    {data?.currency_symbol}
+                    {getPersentValue(data.estimated_budget[key], 15)}
                   </td>
                   <td>
-                    €{getPersentValue(data.estimated_budget_eur[key], 15)}
+                    {data?.currency_symbol}
+                    {getPersentValue(data.estimated_budget[key], 15)}
                   </td>
                 </tr>
               ))}
@@ -372,20 +389,7 @@ const TripDetails = ({ trip }) => {
           )}
         </button>
       )}
-      {/* <div>
-           {!data?.isTripComplete && (
-             <button
-               onClick={handleUpdateTripStatus}
-               disabled={data?.isTripComplete || isMarkLoading}
-               className="w-100 btn text-light bg-primary mb-3"
-             >
-               {isMarkLoading ? "Updating..." : "✅ Mark as complete"}
-               {isMarkLoading && (
-                 <span className="spinner-border spinner-border-sm ms-2" />
-               )}
-             </button>
-           )}
-         </div> */}
+
     </div>
   );
 
@@ -451,7 +455,9 @@ const TripDetails = ({ trip }) => {
               </div>
             </div>
             <div className="mb-3">
-              <label className="form-label">Budget (€)</label>
+              <label className="form-label">
+                Budget ({trip?.currency_symbol})
+              </label>
               <input
                 type="number"
                 name="budget"

@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import styles from "./MyTrips.module.css";
 
 const MyTrips = ({ trips }) => {
+
+  
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>

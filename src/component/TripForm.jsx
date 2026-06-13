@@ -11,13 +11,13 @@ const TripForm = ({
   destination,
   setDestination,
   setIsSelecting,
-  setSuggestions
+  setSuggestions,
 }) => {
   return (
     <div
       className={styles.wrapper}
       onClick={() => {
-        suggestions.length > 0 && setSuggestions([])
+        suggestions.length > 0 && setSuggestions([]);
       }}
     >
       <h2 className={styles.heading}>Plan your trip</h2>
@@ -89,7 +89,7 @@ const TripForm = ({
           <div className={styles.field}>
             <label className={styles.label}>Budget</label>
             <div className={styles.budgetWrap}>
-              <span className={styles.currencyPrefix}>€</span>
+              <span className={styles.currencyPrefix}>₹</span>
               <input
                 type="number"
                 name="budget"
