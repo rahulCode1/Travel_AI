@@ -1,4 +1,4 @@
-# Trip planner
+# Travel AI
 
 A full-stack ai powered trip planner, where you can generate trip, save trip, update trip, delete trip & view trip details.
 Build with React frontend, Express/Node backend, MongoDB database and JWT-based authentication(Google OAuth2.0)
