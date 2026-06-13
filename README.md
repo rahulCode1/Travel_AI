@@ -13,7 +13,7 @@ Build with React frontend, Express/Node backend, MongoDB database and JWT-based 
 
 ## Login
 
-**Login with google**
+**Google OAuth**
 
 ---
 
