@@ -27,6 +27,12 @@ npm run dev # or `npm start`
 
 ```
 
+
+## Environment variables
+
+```
+REACT_APP_MAPBOX_TOKEN=XXXXXXXXXXXX
+```
 ---
 
 # Techonologies

@@ -5,14 +5,13 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./TripDetails.module.css";
 
-const TripPlan = ({ trip }) => {
+const TripPlan = ({ trip, isTripSaved, setTripSaved }) => {
   const [isLoading, setIsLoading] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const tripId = searchParams.get("tripId");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
-  console.log(trip)
 
   const handleSaveTrip = async (e) => {
     e.preventDefault();
@@ -28,6 +27,7 @@ const TripPlan = ({ trip }) => {
       const res = await api.post(`/api/save-trip`, trip);
 
       setSearchParams({ tripId: res.data?.savedTrip?.id });
+      setTripSaved(true);
       toast.update(toastId, {
         render: res.data?.message || "Trip saved successfully.",
         type: "success",
@@ -54,7 +54,7 @@ const TripPlan = ({ trip }) => {
 
   return (
     <>
-      <section className="mt-5">
+      <section className="mt-5 md:w-10/12 md:mx-auto">
         <div className="d-flex flex-column gap-3">
           {/* Header */}
           <div
@@ -295,16 +295,18 @@ const TripPlan = ({ trip }) => {
             </ul>
           </div>
 
-          <button
-            disabled={isLoading}
-            onClick={handleSaveTrip}
-            className="w-100 btn text-light bg-primary"
-          >
-            {isLoading ? "Saving..." : "Save trip"}
-            {isLoading && (
-              <span className="spinner-border spinner-border-sm ms-3"></span>
-            )}
-          </button>
+          {!isTripSaved && (
+            <button
+              disabled={isLoading}
+              onClick={handleSaveTrip}
+              className="w-100 btn text-light bg-primary"
+            >
+              {isLoading ? "Saving..." : "Save trip"}
+              {isLoading && (
+                <span className="spinner-border spinner-border-sm ms-3"></span>
+              )}
+            </button>
+          )}
           {tripId && (
             <Link
               to={`/myTrips/${tripId}`}

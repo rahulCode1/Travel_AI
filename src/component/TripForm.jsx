@@ -75,6 +75,7 @@ const TripForm = ({
             <select
               name="duration"
               value={formData.duration}
+              disabled={isLoading}
               onChange={handleOnChange}
               className={styles.select}
             >
@@ -95,6 +96,7 @@ const TripForm = ({
                 name="budget"
                 value={formData.budget}
                 onChange={handleOnChange}
+                disabled={isLoading}
                 placeholder="0.00"
                 required
                 className={`${styles.input} ${styles.budgetInput}`}
