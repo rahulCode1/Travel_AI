@@ -13,6 +13,7 @@ import TripDetailsPage, {
 } from "./pages/TripDetailsPage";
 import ProctectRoutes from "./component/ProctectRoutes";
 import AdminPage, { loader as topDestLoader } from "./pages/admin/AdminPage";
+import AdminProtectedRoute from "./component/auth/AdminProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -60,9 +61,9 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: (
-          <ProctectRoutes>
+          <AdminProtectedRoute>
             <AdminPage />
-          </ProctectRoutes>
+          </AdminProtectedRoute>
         ),
       },
     ],

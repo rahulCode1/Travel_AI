@@ -1,4 +1,4 @@
-// Sidebar.jsx
+import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
@@ -9,7 +9,9 @@ const Sidebar = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("email");
+    toast.success("User logout successfully.");
+    return navigate("/login");
   };
 
   return (
