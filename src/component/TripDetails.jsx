@@ -11,7 +11,6 @@ import { loadingToast, successToast, toastError } from "../utils/toast.js";
 import ErrorModal from "./model/ErrorModal.jsx";
 import useTravelContext from "../context/TravelContext.jsx";
 import styles from "./TripDetails.module.css";
-import TripSkeleton from "./load/TripSkeleton.jsx";
 
 const TripDetails = ({ trip }) => {
   const initialState = { destination: "", duration: "", budget: "" };
