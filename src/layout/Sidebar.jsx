@@ -5,6 +5,7 @@ import styles from "./Sidebar.module.css";
 const Sidebar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -42,7 +43,7 @@ const Sidebar = () => {
           My Trips
         </NavLink>
       )}
-      {token && (
+      {token && email === "pbrkumawat@gmail.com" && (
         <NavLink
           to="/admin"
           className={({ isActive }) =>
