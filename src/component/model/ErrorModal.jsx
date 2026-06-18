@@ -1,4 +1,4 @@
-const ModelOverlay = ({ children, title, onClose }) => {
+const ErrorModal = ({ children, title, onClose }) => {
   return (
     <main
       style={{
@@ -75,4 +75,4 @@ const ModelOverlay = ({ children, title, onClose }) => {
   );
 };
 
-export default ModelOverlay;
+export default ErrorModal;

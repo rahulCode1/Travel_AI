@@ -42,6 +42,16 @@ const Sidebar = () => {
           My Trips
         </NavLink>
       )}
+      {token && (
+        <NavLink
+          to="/admin"
+          className={({ isActive }) =>
+            `text-decoration-none text-white text-center rounded py-2 mb-2 w-75 ${isActive ? "bg-primary" : "bg-secondary"}`
+          }
+        >
+          Admin
+        </NavLink>
+      )}
 
       {!token && (
         <NavLink

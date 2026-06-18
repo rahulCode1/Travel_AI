@@ -79,6 +79,9 @@ const TripForm = ({
               onChange={handleOnChange}
               className={styles.select}
             >
+              <option selected  disabled>
+                Select duration
+              </option>
               {[...Array(10)].map((_, i) => (
                 <option key={i} value={i + 1}>
                   {i + 1} {i === 0 ? "day" : "days"}{" "}

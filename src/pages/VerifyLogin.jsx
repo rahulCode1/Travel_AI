@@ -19,8 +19,10 @@ const VerifyLogin = () => {
         );
 
         const data = await res.json();
-
+   
         localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user?.userId);
+        localStorage.setItem("email", data.user?.email);
         return navigate("/");
       } catch (error) {
         console.log(error);

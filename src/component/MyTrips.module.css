@@ -1,7 +1,6 @@
-/* MyTrips.module.css */
-.wrapper {
+MyTrips.module.css .wrapper {
   max-width: 640px;
-  margin: 0;            /* was: 0 auto — that was centering it and creating the left gap */
+  margin: 0; /* was: 0 auto — that was centering it and creating the left gap */
   font-family: "DM Sans", sans-serif;
 }
 
@@ -10,6 +9,7 @@
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 1.75rem;
+  padding: 0.5em 0 1.2em 0;
 }
 
 .title {

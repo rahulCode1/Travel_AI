@@ -6,6 +6,7 @@ const Header = () => {
   const [isNavigationOpen, setNavigation] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -88,7 +89,7 @@ const Header = () => {
 
       {isNavigationOpen && (
         <div className="w-100 border-top border-secondary">
-          <ul className="navbar-nav ms-auto gap-1 py-2">
+          <ul className="navbar-nav ms-auto gap-1 p-2">
             <li onClick={toggleNavigation} className="nav-item text-center">
               <NavLink
                 to="/"
@@ -122,6 +123,18 @@ const Header = () => {
                   }
                 >
                   My Trips
+                </NavLink>
+              </li>
+            )}
+            {token && email === "pbrkumawat@gmail.com" && (
+              <li onClick={toggleNavigation} className="nav-item text-center">
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    `nav-link px-3 rounded ${isActive ? "bg-primary text-white" : "text-light"}`
+                  }
+                >
+                  Admin
                 </NavLink>
               </li>
             )}

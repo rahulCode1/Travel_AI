@@ -2,13 +2,13 @@ import { Await, useLoaderData } from "react-router-dom";
 import api from "../utils/api";
 import TripDetails from "../component/TripDetails";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/LoadingSpinner";
+import TripSkeleton from "../component/load/TripSkeleton";
 
 const TripDetailsPage = () => {
   const { trip } = useLoaderData();
 
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <Suspense fallback={<TripSkeleton />}>
       <Await resolve={trip}>
         {(isTripLoad) => <TripDetails trip={isTripLoad.trip} />}
       </Await>

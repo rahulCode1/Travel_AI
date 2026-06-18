@@ -8,9 +8,10 @@ import locationImg from "../imgs/location.png";
 import api from "../utils/api";
 import { useState } from "react";
 import { loadingToast, successToast, toastError } from "../utils/toast.js";
-import ModelOverlay from "./model/ModelOverlay.jsx";
+import ErrorModal from "./model/ErrorModal.jsx";
 import useTravelContext from "../context/TravelContext.jsx";
 import styles from "./TripDetails.module.css";
+import TripSkeleton from "./load/TripSkeleton.jsx";
 
 const TripDetails = ({ trip }) => {
   const initialState = { destination: "", duration: "", budget: "" };
@@ -109,8 +110,6 @@ const TripDetails = ({ trip }) => {
       setIsSaving(false);
     }
   };
-
-  console.log("Trip details:", trip);
 
   const handleUpdateTripStatus = async () => {
     const toastId = loadingToast("Trip Marking as complete...");
@@ -389,14 +388,14 @@ const TripDetails = ({ trip }) => {
           )}
         </button>
       )}
-
     </div>
   );
 
   return (
-    <main className="min-vh-100 bg-dark pt-3 pt-md-4">
+    <>
+    <main className="min-vh-100 bg-dark">
       {/* Sticky topbar */}
-      <div className={`${styles.topbar} px-3 py-2`}>
+      <div className={`${styles.topbar} px-3 py-4`}>
         <div className="container-fluid d-flex align-items-center justify-content-between gap-2">
           <div className="d-flex align-items-center gap-3">
             <Link
@@ -423,7 +422,7 @@ const TripDetails = ({ trip }) => {
 
       {/* Modal */}
       {isModelOpen && (
-        <ModelOverlay title="Update trip" onClose={() => setModelOpen(false)}>
+        <ErrorModal title="Update trip" onClose={() => setModelOpen(false)}>
           <form onSubmit={handleUpdateTrip}>
             <div className="row g-3 mb-3">
               <div className="col-md-6">
@@ -479,7 +478,7 @@ const TripDetails = ({ trip }) => {
               )}
             </button>
           </form>
-        </ModelOverlay>
+        </ErrorModal>
       )}
 
       {/* Content — split or single */}
@@ -537,6 +536,7 @@ const TripDetails = ({ trip }) => {
         )}
       </div>
     </main>
+    </>
   );
 };
 

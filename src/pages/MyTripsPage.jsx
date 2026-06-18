@@ -2,22 +2,19 @@ import api from "../utils/api";
 import MyTrips from "../component/MyTrips";
 import { Await, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/LoadingSpinner";
-import styles from "./MyTripsPage.module.css";
+import MyTripsSkeleton from "../component/load/MyTripsSkeleton";
 
 const MyTripsPage = () => {
   const { trips } = useLoaderData();
 
   return (
-    <main className={styles.main}>
-      <div className="py-2">
-        <Suspense fallback={<LoadingSpinner />}>
-          <Await resolve={trips}>
-            {(isTripsLoad) => <MyTrips trips={isTripsLoad.savedTrips} />}
-          </Await>
-        </Suspense>
-      </div>
-    </main>
+    <>
+      <Suspense fallback={<MyTripsSkeleton />}>
+        <Await resolve={trips}>
+          {(isTripsLoad) => <MyTrips trips={isTripsLoad.savedTrips} />}
+        </Await>
+      </Suspense>
+    </>
   );
 };
 

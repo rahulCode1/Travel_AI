@@ -12,11 +12,14 @@ import TripDetailsPage, {
   loader as tripDetailsLoader,
 } from "./pages/TripDetailsPage";
 import ProctectRoutes from "./component/ProctectRoutes";
+import AdminPage, { loader as topDestLoader } from "./pages/admin/AdminPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: topDestLoader,
+    id: "top_destnations",
     children: [
       {
         index: true,
@@ -53,6 +56,14 @@ const router = createBrowserRouter([
             loader: tripDetailsLoader,
           },
         ],
+      },
+      {
+        path: "admin",
+        element: (
+          <ProctectRoutes>
+            <AdminPage />
+          </ProctectRoutes>
+        ),
       },
     ],
   },

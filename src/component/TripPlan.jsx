@@ -54,7 +54,7 @@ const TripPlan = ({ trip, isTripSaved, setTripSaved }) => {
 
   return (
     <>
-      <section className="mt-5 md:w-10/12 md:mx-auto">
+      <section className="md:w-10/12 md:mx-auto">
         <div className="d-flex flex-column gap-3">
           {/* Header */}
           <div
@@ -307,6 +307,7 @@ const TripPlan = ({ trip, isTripSaved, setTripSaved }) => {
               )}
             </button>
           )}
+
           {tripId && (
             <Link
               to={`/myTrips/${tripId}`}
