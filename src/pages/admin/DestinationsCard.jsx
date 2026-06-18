@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../../utils/api";
 import UpdateDestination from "./UpdateDestination";
 import Modal from "../../component/model/Modal";
+import { toast } from "react-toastify";
 
 const DestinationsCard = ({
   destinations,
@@ -27,6 +28,7 @@ const DestinationsCard = ({
   };
 
   const handleDeleteDestination = async (id) => {
+    const toastId = toast.loading("Deleting trip...");
     try {
       setIsLoading(true);
       setDestId(id);
@@ -34,7 +36,19 @@ const DestinationsCard = ({
       console.log(res.data);
       setDestId(null);
       revalidator.revalidate();
+      toast.update(toastId, {
+        type: "success",
+        isLoading: false,
+        autoClose: 3,
+        data: res.data?.message || "Destination deleted successfully.",
+      });
     } catch (err) {
+      toast.update(toastId, {
+        type: "error",
+        isLoading: false,
+        autoClose: 3,
+        data: err?.response?.data?.message || "Failed to delete destination",
+      });
       console.log(
         err?.response?.data?.message || "Failed to delete destination",
       );
@@ -144,7 +158,7 @@ const DestinationsCard = ({
     "
               >
                 {dest.id === destId && isLoading ? (
-                  <span className="text-[10px]">...</span>
+                  <span className="spinner-border spinner-border-sm"></span>
                 ) : (
                   "🗑️"
                 )}
