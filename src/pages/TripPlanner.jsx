@@ -142,6 +142,8 @@ const TripPlanner = () => {
     });
   };
 
+  console.log(formData)
+
   const handleScroll = (ref, direction) => {
     if (!ref.current) return;
 
@@ -277,8 +279,8 @@ const TripPlanner = () => {
                   onClick={() =>
                     handleSelectDestinationAndFind(
                       topDesti.destination,
-                      topDesti.budget,
                       topDesti.days,
+                      topDesti.budget,
                     )
                   }
                 >
